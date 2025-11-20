@@ -1,1 +1,129 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Finance Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="container">
+    <h1>Personal Finance Tracker</h1>
+    <div id="status" aria-live="polite"></div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Add Transaction</h2>
+      <form id="tx-form" autocomplete="off">
+        <div class="grid">
+          <label>
+            <span>Date</span>
+            <input id="tx-date" name="date" type="date" required>
+          </label>
+          <label>
+            <span>Category</span>
+            <input id="tx-category" name="category" type="text" placeholder="Food, Rent, Salary" required>
+          </label>
+          <label class="span-2">
+            <span>Description (optional)</span>
+            <input id="tx-description" name="description" type="text" placeholder="Short note (optional)">
+          </label>
+          <label>
+            <span>Amount</span>
+            <input id="tx-amount" name="amount" type="number" step="0.01" placeholder="+1000 or -50" required>
+          </label>
+          <div class="align-end">
+            <button id="tx-submit" type="submit" class="primary">Add</button>
+          </div>
+        </div>
+        <div id="tx-error" class="error" role="alert"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Filters</h2>
+      <div id="filters" class="grid">
+        <label>
+          <span>Category</span>
+          <input id="filter-category" type="text" placeholder="Exact match or empty for all">
+        </label>
+        <label>
+          <span>Type</span>
+          <select id="filter-type">
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+        <label>
+          <span>From</span>
+          <input id="filter-from" type="date">
+        </label>
+        <label>
+          <span>To</span>
+          <input id="filter-to" type="date">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Statistics</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="label">Total Income</div>
+          <div id="stat-income" class="value tx-income">+0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Total Expenses</div>
+          <div id="stat-expenses" class="value tx-expense">-0</div>
+        </div>
+        <div class="stat">
+          <div class="label">Balance</div>
+          <div id="stat-balance" class="value">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Transactions</h2>
+      <div class="table-wrap">
+        <table id="tx-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th class="right">Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tx-tbody">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Charts</h2>
+      <div class="charts">
+        <div class="chart">
+          <h3>Expenses by Category (Bar)</h3>
+          <canvas id="chart-category-expenses" width="600" height="300" aria-label="Expenses by Category" role="img"></canvas>
+        </div>
+        <div class="chart">
+          <h3>Monthly Net (Line)</h3>
+          <canvas id="chart-monthly-net" width="600" height="300" aria-label="Monthly Net" role="img"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container small">
+    Amount is signed: positive = income, negative = expense. Data is stored locally in your browser.
+  </footer>
+
+  <script src="tracker/script.js"></script>
+</body>
+</html>

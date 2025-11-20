@@ -1,1 +1,45 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Tracker - Manual Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { padding-top: 10px; }
+    .controls { display: flex; gap: 8px; margin-bottom: 10px; }
+    .note { color: #94a3b8; margin-top: 8px; }
+  </style>
+</head>
+<body class="container">
+  <h1>Manual Test - Finance Tracker</h1>
+  <div class="controls">
+    <button class="primary" id="btn-seed">Seed Demo Data</button>
+    <button class="ghost" id="btn-clear">Clear Data</button>
+    <a class="ghost" href="../index.html" style="align-self:center;text-decoration:none;padding:8px;border:1px solid #344155;border-radius:8px;">Open App</a>
+  </div>
+  <div class="card">
+    <p>Use the buttons above to seed realistic transactions or clear everything. Then open the app to verify:</p>
+    <ul>
+      <li>Transactions sorted by date desc.</li>
+      <li>Filters by category/type/date range.</li>
+      <li>Stats update: income, expenses, balance.</li>
+      <li>Charts draw: bar (category expenses), line (monthly net).</li>
+    </ul>
+    <div class="note">Helpers exposed on window.financeTrackerTest for quick checks in DevTools.</div>
+  </div>
+
+  <script src="../tracker/script.js"></script>
+  <script>
+    document.getElementById('btn-seed').addEventListener('click', () => {
+      window.financeTrackerTest.seedDemoData();
+      alert('Seeded demo transactions into localStorage.');
+    });
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      window.financeTrackerTest.clearAllData();
+      alert('Cleared all transactions from localStorage.');
+    });
+  </script>
+</body>
+</html>
