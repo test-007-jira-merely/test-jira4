@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreadsheet</title>
+    <style>
+        table { border-collapse: collapse; table-layout: fixed; }
+        td, th { border: 1px solid #ccc; padding: 0; }
+        th { background-color: #f4f4f4; }
+        th:first-child { width: 50px; }
+        input { border: none; width: 100px; height: 100%; box-sizing: border-box; padding: 2px; }
+        input:focus { outline: 2px solid #4d90fe; }
+    </style>
+</head>
+<body>
+    <h1>Mini Spreadsheet</h1>
+    <button id="import-csv">Import CSV</button>
+    <button id="export-csv">Export CSV</button>
+    <input type="file" id="csv-file-input" style="display: none;" accept=".csv">
+    <div id="spreadsheet-container" style="margin-top: 10px;"></div>
+    <script src="script.js"></script>
+</body>
+</html>
