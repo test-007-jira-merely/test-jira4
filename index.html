@@ -100,7 +100,7 @@
       border-bottom: 1px solid var(--card-border);
       backdrop-filter: blur(8px);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
     }
 
@@ -111,6 +111,18 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+    }
+
+    /* Footer section */
+    footer {
+      width: 100%;
+      padding: 20px 40px;
+      background: var(--card-bg);
+      border-top: 1px solid var(--card-border);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     /* Theme toggle switch */
@@ -241,24 +253,9 @@
   </style>
 </head>
 <body>
-  <!-- Header section with theme toggle -->
+  <!-- Header section -->
   <header>
     <div class="header-title">Theme Demo</div>
-    <div class="theme-switch-wrapper">
-      <span class="theme-switch-label">Dark</span>
-      <label class="theme-switch">
-        <input type="checkbox" id="theme-toggle" aria-label="Toggle between light and dark theme">
-        <span class="slider">
-          <svg class="slider-icon sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 7C9.24 7 7 9.24 7 12S9.24 17 12 17 17 14.76 17 12 14.76 7 12 7M12 15C10.35 15 9 13.65 9 12S10.35 9 12 9 15 10.35 15 12 13.65 15 12 15M12 2L14.39 6.42C13.65 6.15 12.84 6 12 6S10.35 6.15 9.61 6.42L12 2M3.34 7L7.76 6.05C6.9 6.73 6.18 7.58 5.64 8.54L3.34 7M3.34 17L5.64 15.46C6.18 16.42 6.9 17.27 7.76 17.95L3.34 17M20.66 17L16.24 17.95C17.1 17.27 17.82 16.42 18.36 15.46L20.66 17M20.66 7L18.36 8.54C17.82 7.58 17.1 6.73 16.24 6.05L20.66 7M12 22L9.61 17.58C10.35 17.85 11.16 18 12 18S13.65 17.85 14.39 17.58L12 22Z"/>
-          </svg>
-          <svg class="slider-icon moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M12 3C7 3 3 7 3 12S7 21 12 21 21 17 21 12C21 11.5 21 11 20.9 10.5C19.9 12.3 18 13.5 15.8 13.5C12.5 13.5 9.8 10.8 9.8 7.5C9.8 5.3 11 3.4 12.8 2.5C12.5 2.5 12.3 3 12 3Z"/>
-          </svg>
-        </span>
-      </label>
-      <span class="theme-switch-label">Light</span>
-    </div>
   </header>
 
   <!-- Main content area -->
@@ -285,6 +282,26 @@
       <p class="sr-only">Additional card block for SCRUM-122.</p>
     </div>
   </div>
+  </div>
+
+  <!-- Footer section with theme toggle -->
+  <footer>
+    <div class="theme-switch-wrapper">
+      <span class="theme-switch-label">Dark</span>
+      <label class="theme-switch">
+        <input type="checkbox" id="theme-toggle" aria-label="Toggle between light and dark theme">
+        <span class="slider">
+          <svg class="slider-icon sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 7C9.24 7 7 9.24 7 12S9.24 17 12 17 17 14.76 17 12 14.76 7 12 7M12 15C10.35 15 9 13.65 9 12S10.35 9 12 9 15 10.35 15 12 13.65 15 12 15M12 2L14.39 6.42C13.65 6.15 12.84 6 12 6S10.35 6.15 9.61 6.42L12 2M3.34 7L7.76 6.05C6.9 6.73 6.18 7.58 5.64 8.54L3.34 7M3.34 17L5.64 15.46C6.18 16.42 6.9 17.27 7.76 17.95L3.34 17M20.66 17L16.24 17.95C17.1 17.27 17.82 16.42 18.36 15.46L20.66 17M20.66 7L18.36 8.54C17.82 7.58 17.1 6.73 16.24 6.05L20.66 7M12 22L9.61 17.58C10.35 17.85 11.16 18 12 18S13.65 17.85 14.39 17.58L12 22Z"/>
+          </svg>
+          <svg class="slider-icon moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 3C7 3 3 7 3 12S7 21 12 21 21 17 21 12C21 11.5 21 11 20.9 10.5C19.9 12.3 18 13.5 15.8 13.5C12.5 13.5 9.8 10.8 9.8 7.5C9.8 5.3 11 3.4 12.8 2.5C12.5 2.5 12.3 3 12 3Z"/>
+          </svg>
+        </span>
+      </label>
+      <span class="theme-switch-label">Light</span>
+    </div>
+  </footer>
 
   <script>
     // Theme toggle functionality with localStorage persistence
