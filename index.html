@@ -54,8 +54,9 @@
 
     body {
       margin: 0;
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       background:
         radial-gradient(1000px 600px at 20% 20%, rgba(59,130,246, var(--gradient-opacity-1)), transparent 50%),
         radial-gradient(800px 500px at 80% 80%, rgba(99,102,241, var(--gradient-opacity-2)), transparent 50%),
@@ -91,46 +92,123 @@
       position: relative;
     }
 
-    /* Theme toggle button */
-    .theme-toggle {
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
+    /* Header section */
+    header {
+      width: 100%;
+      padding: 20px 40px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Theme toggle switch */
+    .theme-switch-wrapper {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+    }
+
+    .theme-switch-label {
+      font-size: 14px;
+      color: var(--fg-muted);
+      user-select: none;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 60px;
+      height: 32px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      z-index: 1000;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--card-border);
+      transition: background-color 0.3s ease;
+      border-radius: 34px;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    }
-
-    .theme-toggle:focus {
-      outline: 2px solid var(--secondary);
-      outline-offset: 2px;
-    }
-
-    .theme-toggle svg {
-      width: 24px;
+    .slider:before {
+      position: absolute;
+      content: "";
       height: 24px;
-      fill: currentColor;
+      width: 24px;
+      left: 4px;
+      bottom: 4px;
+      background: white;
+      transition: transform 0.3s ease;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-    /* Hide inactive icon */
-    [data-theme="light"] .icon-moon,
-    :root:not([data-theme="light"]) .icon-sun {
-      display: none;
+    .theme-switch input:checked + .slider {
+      background: var(--primary);
+    }
+
+    .theme-switch input:checked + .slider:before {
+      transform: translateX(28px);
+    }
+
+    .theme-switch input:focus + .slider {
+      box-shadow: 0 0 0 2px var(--secondary);
+    }
+
+    /* Icons in the slider */
+    .slider-icon {
+      position: absolute;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+      transition: opacity 0.3s ease;
+    }
+
+    .slider-icon.sun {
+      left: 6px;
+      fill: #fbbf24;
+    }
+
+    .slider-icon.moon {
+      right: 6px;
+      fill: #a78bfa;
+    }
+
+    .theme-switch input:checked ~ .slider .sun {
+      opacity: 0;
+    }
+
+    .theme-switch input:not(:checked) ~ .slider .moon {
+      opacity: 0;
+    }
+
+    /* Main content area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
     }
 
     .sr-only {
@@ -163,17 +241,29 @@
   </style>
 </head>
 <body>
-  <!-- Theme toggle button -->
-  <button class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark theme">
-    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 17.5C9.5 17.5 7.5 15.5 7.5 13S9.5 8.5 12 8.5 16.5 10.5 16.5 13 14.5 17.5 12 17.5M12 7C8.7 7 6 9.7 6 13S8.7 19 12 19 18 16.3 18 13 15.3 7 12 7M12 2L14.4 6.4L19 5.7L16.2 9.8L18.6 14L14 12.7L9.4 14L11.8 9.8L9 5.7L13.6 6.4L12 2Z"/>
-    </svg>
-    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 3C7 3 3 7 3 12S7 21 12 21 21 17 21 12C21 11.5 21 11 20.9 10.5C19.9 12.3 18 13.5 15.8 13.5C12.5 13.5 9.8 10.8 9.8 7.5C9.8 5.3 11 3.4 12.8 2.5C12.5 2.5 12.3 3 12 3Z"/>
-    </svg>
-  </button>
+  <!-- Header section with theme toggle -->
+  <header>
+    <div class="header-title">Theme Demo</div>
+    <div class="theme-switch-wrapper">
+      <span class="theme-switch-label">Dark</span>
+      <label class="theme-switch">
+        <input type="checkbox" id="theme-toggle" aria-label="Toggle between light and dark theme">
+        <span class="slider">
+          <svg class="slider-icon sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 7C9.24 7 7 9.24 7 12S9.24 17 12 17 17 14.76 17 12 14.76 7 12 7M12 15C10.35 15 9 13.65 9 12S10.35 9 12 9 15 10.35 15 12 13.65 15 12 15M12 2L14.39 6.42C13.65 6.15 12.84 6 12 6S10.35 6.15 9.61 6.42L12 2M3.34 7L7.76 6.05C6.9 6.73 6.18 7.58 5.64 8.54L3.34 7M3.34 17L5.64 15.46C6.18 16.42 6.9 17.27 7.76 17.95L3.34 17M20.66 17L16.24 17.95C17.1 17.27 17.82 16.42 18.36 15.46L20.66 17M20.66 7L18.36 8.54C17.82 7.58 17.1 6.73 16.24 6.05L20.66 7M12 22L9.61 17.58C10.35 17.85 11.16 18 12 18S13.65 17.85 14.39 17.58L12 22Z"/>
+          </svg>
+          <svg class="slider-icon moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 3C7 3 3 7 3 12S7 21 12 21 21 17 21 12C21 11.5 21 11 20.9 10.5C19.9 12.3 18 13.5 15.8 13.5C12.5 13.5 9.8 10.8 9.8 7.5C9.8 5.3 11 3.4 12.8 2.5C12.5 2.5 12.3 3 12 3Z"/>
+          </svg>
+        </span>
+      </label>
+      <span class="theme-switch-label">Light</span>
+    </div>
+  </header>
 
-  <div class="cards-container">
+  <!-- Main content area -->
+  <div class="main-content">
+    <div class="cards-container">
     <main class="card" role="main" aria-labelledby="title">
       <h1 id="title">Test Site</h1>
       <p class="sr-only">A minimal standalone page for SCRUM-63.</p>
@@ -190,43 +280,38 @@
       <h1 id="title4">orange2</h1>
       <p class="sr-only">Additional card block for SCRUM-115.</p>
     </div>
+    </div>
   </div>
 
   <script>
     // Theme toggle functionality with localStorage persistence
     (function() {
-      // Get the theme toggle button
-      const themeToggle = document.querySelector('.theme-toggle');
+      // Get the theme toggle checkbox
+      const themeToggle = document.getElementById('theme-toggle');
       const html = document.documentElement;
 
       // Check for saved theme preference or default to dark mode
       const currentTheme = localStorage.getItem('theme') || 'dark';
 
-      // Apply the saved theme on load
+      // Apply the saved theme on load and set checkbox state
       if (currentTheme === 'light') {
         html.setAttribute('data-theme', 'light');
+        themeToggle.checked = true;
+      } else {
+        html.removeAttribute('data-theme');
+        themeToggle.checked = false;
       }
 
-      // Add click event listener to the theme toggle button
-      themeToggle.addEventListener('click', function() {
-        // Get current theme
-        const isLight = html.getAttribute('data-theme') === 'light';
-
-        // Toggle theme
-        if (isLight) {
-          html.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'dark');
-        } else {
+      // Add change event listener to the theme toggle checkbox
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          // Switch to light theme
           html.setAttribute('data-theme', 'light');
           localStorage.setItem('theme', 'light');
-        }
-      });
-
-      // Keyboard accessibility - toggle on Enter or Space
-      themeToggle.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          themeToggle.click();
+        } else {
+          // Switch to dark theme
+          html.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'dark');
         }
       });
     })();
