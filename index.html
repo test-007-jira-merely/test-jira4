@@ -1,85 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello World</title>
-  <style>
-    :root {
-      --bg-start: #334155;
-      --bg-end: #0F172A;
-      --fg: #FFFFFF;
-      --accent-1: #60a5fa;
-      --accent-2: #a78bfa;
-      --accent-3: #34d399;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(1000px 600px at 20% 20%, rgba(148,163,184,0.15), transparent 50%),
-        radial-gradient(800px 500px at 80% 80%, rgba(148,163,184,0.12), transparent 50%),
-        linear-gradient(180deg, var(--bg-start), var(--bg-end));
-      color: var(--fg);
-      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(32px, 8vw, 72px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-      text-shadow: 0 2px 16px rgba(59,130,246,0.25);
-    }
-    .card {
-      padding: clamp(24px, 4vw, 48px);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(148,163,184,0.2);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px rgba(255,255,255,0.05);
-      backdrop-filter: blur(4px);
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 1px, 1px);
-      white-space: nowrap;
-      border: 0;
-    }
-    .cards-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Майбутнє Цифрового Маркетингу</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 2rem 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            padding: 80px 2rem;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .stats {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonials {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .cta-section {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="cards-container">
-    <main class="card" role="main" aria-labelledby="title">
-      <h1 id="title">Test Site</h1>
-      <p class="sr-only">A minimal standalone page for SCRUM-63.</p>
-    </main>
-    <div class="card" aria-labelledby="title2">
-      <h1 id="title2">hello world</h1>
-      <p class="sr-only">Additional card block for SCRUM-71.</p>
-    </div>
-    <div class="card" aria-labelledby="title3">
-      <h1 id="title3">hi dev</h1>
-      <p class="sr-only">Additional card block for SCRUM-87.</p>
-    </div>
-    <div class="card" aria-labelledby="title4">
-      <h1 id="title4">orange2</h1>
-      <p class="sr-only">Additional card block for SCRUM-115.</p>
-    </div>
-  </div>
+    <header>
+        <nav>
+            <div class="logo">DigiPro</div>
+            <ul class="nav-links">
+                <li><a href="#features">Переваги</a></li>
+                <li><a href="#stats">Статистика</a></li>
+                <li><a href="#testimonials">Відгуки</a></li>
+                <li><a href="#cta">Контакти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Трансформуйте Ваш Бізнес</h1>
+            <p>Ми створюємо інноваційні рішення для цифрового маркетингу, що допомагають вашому бізнесу рости та процвітати в онлайн-просторі</p>
+            <a href="#cta" class="cta-button">Почати зараз</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Наші Переваги</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Швидкий Старт</h3>
+                    <p>Запустіть свою рекламну кампанію за лічені години. Наша платформа оптимізована для швидкого розгортання.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Аналітика в Реальному Часі</h3>
+                    <p>Отримуйте детальну статистику та інсайти про ефективність ваших кампаній у режимі реального часу.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Розумна Автоматизація</h3>
+                    <p>Використовуйте штучний інтелект для оптимізації ваших рекламних бюджетів та підвищення конверсії.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="stats">
+        <div class="container">
+            <h2 class="section-title">Наші Досягнення</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h2>1500+</h2>
+                    <p>Задоволених Клієнтів</p>
+                </div>
+                <div class="stat-item">
+                    <h2>98%</h2>
+                    <p>Рівень Задоволеності</p>
+                </div>
+                <div class="stat-item">
+                    <h2>250%</h2>
+                    <p>Середнє Зростання ROI</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Що Кажуть Клієнти</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"DigiPro допоміг нам збільшити продажі на 300% за перші три місяці. Неймовірні результати!"</p>
+                    <div class="testimonial-author">- Олена Ковальчук, CEO TechStart</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Найкраща платформа для цифрового маркетингу. Інтуїтивна, потужна та ефективна."</p>
+                    <div class="testimonial-author">- Ігор Мельник, Маркетинг Директор</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Професійна команда та чудові результати. Рекомендую всім, хто хоче розвивати свій бізнес."</p>
+                    <div class="testimonial-author">- Марія Шевченко, Власник магазину</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2>Готові Почати?</h2>
+            <p>Приєднуйтесь до тисяч успішних компаній, які вже трансформували свій бізнес</p>
+            <a href="#" class="cta-button">Отримати Безкоштовну Консультацію</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 DigiPro. Всі права захищені.</p>
+    </footer>
 </body>
 </html>
