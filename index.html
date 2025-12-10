@@ -5,6 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Майбутнє Цифрового Маркетингу</title>
     <style>
+        /* CSS Variables for Theme Support */
+        :root {
+            /* Light Theme (Default) - Teal Pastel Palette */
+            --primary: #4DD0E1;
+            --secondary: #26A69A;
+            --accent: #B2DFDB;
+            --bg-body: #ffffff;
+            --bg-section: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --text-muted: #666666;
+            --footer-bg: #333333;
+            --footer-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-hover: rgba(0, 0, 0, 0.15);
+            --gradient-start: #4DD0E1;
+            --gradient-end: #26A69A;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --primary: #00ACC1;
+            --secondary: #00897B;
+            --accent: #4DB6AC;
+            --bg-body: #1a1a2e;
+            --bg-section: #16213e;
+            --bg-card: #1f2940;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #909090;
+            --footer-bg: #0f0f1a;
+            --footer-text: #e8e8e8;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+            --gradient-start: #00ACC1;
+            --gradient-end: #00897B;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,19 +53,22 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-primary);
+            background-color: var(--bg-body);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         nav {
@@ -41,6 +83,12 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
         }
 
         .nav-links {
@@ -59,13 +107,63 @@
             opacity: 0.8;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            position: absolute;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .theme-toggle .sun-icon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0);
+        }
+
+        .theme-toggle .moon-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0);
+        }
+
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
             padding: 150px 2rem 100px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background 0.3s ease;
         }
 
         .hero::before {
@@ -118,11 +216,11 @@
             display: inline-block;
             padding: 1rem 2.5rem;
             background: white;
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
             animation: fadeInUp 1s ease 0.4s backwards;
         }
 
@@ -133,7 +231,8 @@
 
         .features {
             padding: 80px 2rem;
-            background: #f8f9fa;
+            background: var(--bg-section);
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -145,7 +244,8 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: #333;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
         }
 
         .features-grid {
@@ -155,38 +255,50 @@
         }
 
         .feature-card {
-            background: white;
+            background: var(--bg-card);
             padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px var(--shadow-hover);
         }
 
         .feature-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            transition: background 0.3s ease;
         }
 
         .feature-card h3 {
             margin-bottom: 1rem;
-            color: #333;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .stats {
             padding: 80px 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .stats .section-title {
             color: white;
         }
 
@@ -204,7 +316,8 @@
 
         .testimonials {
             padding: 80px 2rem;
-            background: white;
+            background: var(--bg-card);
+            transition: background-color 0.3s ease;
         }
 
         .testimonials-grid {
@@ -214,28 +327,32 @@
         }
 
         .testimonial-card {
-            background: #f8f9fa;
+            background: var(--bg-section);
             padding: 2rem;
             border-radius: 15px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .testimonial-card p {
             font-style: italic;
             margin-bottom: 1rem;
-            color: #555;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .testimonial-author {
             font-weight: bold;
-            color: #667eea;
+            color: var(--primary);
+            transition: color 0.3s ease;
         }
 
         .cta-section {
             padding: 80px 2rem;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            background: linear-gradient(135deg, var(--gradient-end) 0%, var(--gradient-start) 100%);
             color: white;
             text-align: center;
+            transition: background 0.3s ease;
         }
 
         .cta-section h2 {
@@ -249,10 +366,11 @@
         }
 
         footer {
-            background: #333;
-            color: white;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             padding: 2rem;
             text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         @media (max-width: 768px) {
@@ -264,12 +382,26 @@
                 font-size: 1rem;
             }
 
+            .nav-right {
+                gap: 1rem;
+            }
+
             .nav-links {
                 gap: 1rem;
             }
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .theme-toggle {
+                width: 36px;
+                height: 36px;
+            }
+
+            .theme-toggle svg {
+                width: 18px;
+                height: 18px;
             }
         }
     </style>
@@ -278,12 +410,32 @@
     <header>
         <nav>
             <div class="logo">DigiPro</div>
-            <ul class="nav-links">
-                <li><a href="#features">Переваги</a></li>
-                <li><a href="#stats">Статистика</a></li>
-                <li><a href="#testimonials">Відгуки</a></li>
-                <li><a href="#cta">Контакти</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#features">Переваги</a></li>
+                    <li><a href="#stats">Статистика</a></li>
+                    <li><a href="#testimonials">Відгуки</a></li>
+                    <li><a href="#cta">Контакти</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <!-- Moon Icon (shown in light mode) -->
+                    <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <!-- Sun Icon (shown in dark mode) -->
+                    <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="12" y1="21" x2="12" y2="23" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="1" y1="12" x2="3" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="21" y1="12" x2="23" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -369,5 +521,43 @@
     <footer>
         <p>&copy; 2024 DigiPro. Всі права захищені.</p>
     </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        (function() {
+            const THEME_KEY = 'digiproTheme';
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+
+            // Load saved theme preference from localStorage
+            function loadTheme() {
+                const savedTheme = localStorage.getItem(THEME_KEY);
+                if (savedTheme) {
+                    html.setAttribute('data-theme', savedTheme);
+                }
+            }
+
+            // Toggle theme between light and dark
+            function toggleTheme() {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                if (newTheme === 'light') {
+                    html.removeAttribute('data-theme');
+                } else {
+                    html.setAttribute('data-theme', newTheme);
+                }
+
+                // Save preference to localStorage
+                localStorage.setItem(THEME_KEY, newTheme);
+            }
+
+            // Initialize theme on page load
+            loadTheme();
+
+            // Add click event listener to toggle button
+            themeToggle.addEventListener('click', toggleTheme);
+        })();
+    </script>
 </body>
 </html>
